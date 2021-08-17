@@ -1,0 +1,23 @@
+extends ../layouts/dashboard.pug
+block content 
+    h2 dashboard 
+
+    div(class="card")
+        div(class="card-body")
+            form(action="/customer/add" method="post")
+                div(class="mb-3")
+                    input(type="text" class="form-control" id="firstName" placeholder="Imie" name="firstName")
+                div(class="mb-3")
+                    input(type="text" class="form-control" id="lastName" placeholder="Nazwisko" name="lastName")
+                div(class="mb-3")
+                    input(type="text" class="form-control" id="number" placeholder="Numer" name="number")
+                
+                //- div(class="mb-3")
+                //-     input(type="text" class="form-control" id="discount" placeholder="Znizka" name="discount")
+
+                select#propertyType.select.form-control.input-lg(form='addProperty', name='ticketType')
+                    option(value="") Karnet
+                    each val in types
+                        option(value=val.dataValues.id) #{val.dataValues.name} (#{val.dataValues.price} zł)
+                    
+                button(type="submit" class="btn btn-primary") dodaj

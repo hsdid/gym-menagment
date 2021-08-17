@@ -1,0 +1,20 @@
+{
+  "name": "relax",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "build:css": "tailwindcss build views/css/styles.css -o dist/styles.css"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "multer": "^1.4.3",
+    "mysql2": "^2.3.0",
+    "pug": "^3.0.2",
+    "sequelize": "^6.6.5"
+  }
+}
