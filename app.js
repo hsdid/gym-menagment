@@ -19,6 +19,11 @@ app.listen({ port: 5000}, async () => {
     'use strict';
     console.log('server running');
     //await sequelize.sync({force: true});
+    // await sequelize
+    // .query('SET FOREIGN_KEY_CHECKS = 0', {raw: true})
+    // .then(function(results) {
+    //     sequelize.sync({force: true});
+    // });
     await sequelize.authenticate();
 });
 

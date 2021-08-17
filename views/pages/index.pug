@@ -12,12 +12,16 @@ block content
                 div(class="mb-3")
                     input(type="text" class="form-control" id="number" placeholder="Numer" name="number")
                 
-                //- div(class="mb-3")
-                //-     input(type="text" class="form-control" id="discount" placeholder="Znizka" name="discount")
-
-                select#propertyType.select.form-control.input-lg(form='addProperty', name='ticketType')
-                    option(value="") Karnet
-                    each val in types
-                        option(value=val.dataValues.id) #{val.dataValues.name} (#{val.dataValues.price} zł)
+                div(class="mb-3")
+                    select#propertyType.select.form-control.input-lg(form='addProperty', name='discount')
+                        option(value="") Zniżka
+                        each val in discounts
+                            option(value=val.dataValues.id) #{val.dataValues.name} (#{val.dataValues.discount} %)
+                    
+                div(class="mb-3")
+                    select#propertyType.select.form-control.input-lg(form='addProperty', name='ticketType')
+                        option(value="") Karnet
+                        each val in types
+                            option(value=val.dataValues.id) #{val.dataValues.name} (#{val.dataValues.price} zł)
                     
                 button(type="submit" class="btn btn-primary") dodaj
