@@ -1,15 +1,38 @@
 const query = ({ models }) => {
     return Object.freeze({
         insertNewCustomer,
-        findCustomerByNumber
+        findCustomerByNumber,
+        findOneById,
+        findAll
     });
 
 
     async function insertNewCustomer({data}) {
         try {
-            console.log(data);
             const Customer = models.Customer;
                 const res = await Customer.create(data);
+            return res;
+        } catch (e) {
+            console.log("Error: ", e);
+        }
+    }
+
+    async function findOneById(id) {
+        try {
+            const Customer = models.Customer;
+            const res = await Customer.findOne({where:{
+                id: id
+            }});
+            return res;
+        } catch (e) {
+            console.log("Error: ", e);
+        }
+    }
+
+    async function findAll() {
+        try {
+            const Customer = models.Customer;
+            const res = await Customer.findAll();
             return res;
         } catch (e) {
             console.log("Error: ", e);

@@ -1,16 +1,26 @@
-const customerAdd = ({ addCustomers }) => {
+const customerAdd = ({ addCustomers, addTickets }) => {
     return async function post(req, res, next) {
 
         if (req.method === 'POST') {
             const data = req.body;
+
+            const ticketType = data.ticketType;
+            const code = data.code;
             
-            const {customer} = await addCustomers(data);
-            
-            if (customer) {
-                console.log('udalo sie');
-                res.redirect('/');
+            let ticketData = {
+                code: code,
+                ticketTypeId: ticketType
             }
-            console.log('error');
+
+            delete data['ticketType'];
+            delete data['code'];
+            
+            const customer = await addCustomers(data);
+            
+            ticketData['customerId'] = customer.dataValues.id;
+            
+            const ticket = await addTickets(ticketData);
+            
             res.redirect('/');
         }
     }
