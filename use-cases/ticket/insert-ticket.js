@@ -1,10 +1,7 @@
-
-
 const addTicket = ({ ticketDb, ticketTypeDb, customerDb }) => {
     return async function post(data) {
-        
-
         const ticketType = await ticketTypeDb.findOneById(data.ticketTypeId);
+        
         const activeDays = ticketType.dataValues.activeDays;
         const price = ticketType.dataValues.price;
 
@@ -16,8 +13,6 @@ const addTicket = ({ ticketDb, ticketTypeDb, customerDb }) => {
         //set dateTo
         let current = new Date();
         const dateTo = current.setDate(current.getDate() + activeDays);
-        
-        console.log(dateTo);
 
         data['finalPrice'] = finalPrice;
         data['dateTo'] = dateTo;    

@@ -1,7 +1,14 @@
 extends ../layouts/dashboard.pug
 block content 
     h2 dashboard 
-
+    if (msg)
+        div(class="messages")
+            if (msg.error)
+                div(class="error")
+                #{msg.error}
+            if (msg.success)
+                div(class="success")
+                #{msg.success}
     div(class="card")
         div(class="card-body")
             form(action="/customer/add" method="post")
@@ -13,15 +20,47 @@ block content
                     input(type="text" class="form-control" id="number" placeholder="Numer" name="number")
                 
                 div(class="mb-3")
-                    select#propertyType.select.form-control.input-lg(form='addProperty', name='discount')
+                    select#propertyType.select.form-control.input-lg(name='discountId')
                         option(value="") Zniżka
                         each val in discounts
                             option(value=val.dataValues.id) #{val.dataValues.name} (#{val.dataValues.discount} %)
                     
                 div(class="mb-3")
-                    select#propertyType.select.form-control.input-lg(form='addProperty', name='ticketType')
+                    select#propertyType.select.form-control.input-lg(name='ticketType')
                         option(value="") Karnet
                         each val in types
                             option(value=val.dataValues.id) #{val.dataValues.name} (#{val.dataValues.price} zł)
-                    
+                div(class="mb-3")
+                    input(type="text" class="form-control" id="code" placeholder="kod karnetu" name="code")
+
                 button(type="submit" class="btn btn-primary") dodaj
+            div()
+                table(class="table")
+                    thead(class="thead-dark")
+                    thead(class="thead-dark")
+                        tr 
+                            th(scope="col") #
+                            th(scope="col") Imie
+                            th(scope="col") Nazwisko
+                            th(scope="col") Numer
+                            th(scope="col") karnet
+                            th(scope="col") Koniec karnetu
+                            th(scope="col") Status
+                    tbody()
+                        each customer in customers
+                            tr 
+                                th(scope="row")
+                                td #{customer.firstName}
+                                td #{customer.lastName}
+                                td #{customer.number}
+                                td #{customer.code}
+                                td #{customer.dataTo}
+                                if (customer.active == true)
+                                    td aktywny
+                                else if (customer.active == false)
+                                    td nie aktywny
+                        
+                            
+                            
+
+        

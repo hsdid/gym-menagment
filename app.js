@@ -2,6 +2,7 @@ const express = require('express');
 const app     = express();
 const { sequelize } = require('./models');
 const path = require('path');
+var session = require('express-session');
 
 //routes
 const homeRoute = require('./routes/home/app');
@@ -9,6 +10,7 @@ const customerRoute = require('./routes/customer/app');
 
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(session({secret: "Shh, its a secret!"}));
 app.set('views','./views');
 app.set('view engine', 'pug');
 

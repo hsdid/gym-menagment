@@ -9,7 +9,9 @@ const customerValidation = data => {
             .min(2)
             .required(),
         number: Joi.number()
-            .required()
+            .required(),
+        discountId: Joi.number(),
+        ticketType: Joi.number()
     });
 
     return schema.validate(data);
