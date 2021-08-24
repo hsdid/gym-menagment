@@ -1,40 +1,40 @@
 extends ../layouts/dashboard.pug
 block content 
-    h2 dashboard 
+    h2(class="container") dashboard 
     if (msg)
-        div(class="messages")
+        div(class="messages container")
             if (msg.error)
                 div(class="error")
                 #{msg.error}
             if (msg.success)
                 div(class="success")
                 #{msg.success}
-    div(class="card")
-        div(class="card-body")
-            form(action="/customer/add" method="post")
-                div(class="mb-3")
+    div(class="card ms-auto me-auto mt-5 pt-4 pb-5" style="max-width:1350px; min-width:768px;")
+        div(class="card-body container")
+            form(action="/customer/add" method="post" class="row")
+                div(class="col ps-0 pe-1")
                     input(type="text" class="form-control" id="firstName" placeholder="Imie" name="firstName")
-                div(class="mb-3")
+                div(class="col ps-0 pe-1")
                     input(type="text" class="form-control" id="lastName" placeholder="Nazwisko" name="lastName")
-                div(class="mb-3")
+                div(class="col ps-0 pe-1")
                     input(type="text" class="form-control" id="number" placeholder="Numer" name="number")
                 
-                div(class="mb-3")
-                    select#propertyType.select.form-control.input-lg(name='discountId')
-                        option(value="") Zniżka
+                div(class="col ps-0 pe-1")
+                    select#propertyType.select.form-control.input-lg(data-discount name='discountId')
+                        option(value="0" discount="0") Zniżka
                         each val in discounts
-                            option(value=val.dataValues.id) #{val.dataValues.name} (#{val.dataValues.discount} %)
+                            option(value=val.dataValues.id discount=val.dataValues.discount) #{val.dataValues.name} (#{val.dataValues.discount} %)
                     
-                div(class="mb-3")
-                    select#propertyType.select.form-control.input-lg(name='ticketType')
+                div(class="col ps-0 pe-1")
+                    select#propertyType.select.form-control.input-lg(data-price name='ticketType')
                         option(value="") Karnet
                         each val in types
-                            option(value=val.dataValues.id) #{val.dataValues.name} (#{val.dataValues.price} zł)
-                div(class="mb-3")
+                            option(data-price-option value=val.dataValues.id price=val.dataValues.price) #{val.dataValues.name}
+                div(class="col ps-0 pe-1")
                     input(type="text" class="form-control" id="code" placeholder="kod karnetu" name="code")
 
-                button(type="submit" class="btn btn-primary") dodaj
-            div()
+                button(type="submit" class="btn btn-primary btn-sm col-1") dodaj
+            div(class="mt-5" style="overflow: hidden;")
                 table(class="table")
                     thead(class="thead-dark")
                     thead(class="thead-dark")
