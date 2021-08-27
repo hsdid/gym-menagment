@@ -7,8 +7,7 @@ const addCustomer = ({ customerDb, customerValidation }) => {
             return {errors: error}
         }
         const customer = await customerDb.insertNewCustomer({data});
-        console.log(customer);
-            return {customer};
+        return {customer};
     };
 };
 

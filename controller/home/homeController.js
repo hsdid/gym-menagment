@@ -32,7 +32,7 @@ const homeController = ({ findAllTicketTypes, findAllDiscounts, findAllCustomers
         }
 
         msg = req.session.msg;
-        
+
         return res.render('pages/index', {types: ticketTypes, discounts: discounts, customers: formatCustomer, msg: msg });
     }
 }
