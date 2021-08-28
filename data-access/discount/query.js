@@ -1,6 +1,7 @@
 const query = ({ models }) => {
     return Object.freeze({
-        findAll
+        findAll,
+        insertNewDiscount
     });
 
     async function findAll() {
@@ -11,7 +12,18 @@ const query = ({ models }) => {
         } catch (e) {
             console.log("Error: ", e);
         }
-    }
+    };
+
+    async function insertNewDiscount({ data }) {
+        try {
+            const Discount = models.Discount; 
+            const res = await Discount.create(data);
+
+            return res;
+        } catch (e) {
+            console.log("Error: ", e);
+        }
+    };
 
 }
 

@@ -1,0 +1,36 @@
+extends ../layouts/dashboard.pug
+block content 
+    h2(class="container") Discount
+
+    if (msg)
+        div(class="messages container")
+            if (msg.error)
+                div(class="alert alert-danger") #{ msg.error }
+            if (msg.success)
+                div(class="alert alert-success") #{msg.success}
+    div(class="card ms-auto me-auto mt-5 pt-4 pb-5" style="max-width:1350px; min-width:768px;")
+        div(class="card-body container")
+            form(action="/discount/add" method="post" class="row")
+                div(class="col ps-0 pe-1")
+                    input(type="text" class="form-control" id="name" placeholder="Nazwa zniżki" name="name")
+                div(class="col ps-0 pe-1")
+                    input(type="text" class="form-control" id="discount" placeholder="Zniżka" name="discount")
+               
+                button(type="submit" class="btn btn-primary btn-sm col-1") dodaj
+            div(class="mt-5" style="overflow: hidden;")
+                table(class="table")
+                    thead(class="thead-dark")
+                    thead(class="thead-dark")
+                        tr 
+                            th(scope="col") #
+                            th(scope="col") Nazwa zniżki 
+                            th(scope="col") Zniżka
+                    tbody()
+                        each discount in discounts
+                            tr 
+                                th(scope="row")
+                                td #{discount.name}
+                                td #{discount.discount}
+                                td aktywny
+                              
+                        
