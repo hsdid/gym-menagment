@@ -1,0 +1,39 @@
+extends ../layouts/dashboard.pug
+block content 
+    h2(class="container") Ticket
+
+    if (msg)
+        div(class="messages container")
+            if (msg.error)
+                div(class="alert alert-danger") #{ msg.error }
+            if (msg.success)
+                div(class="alert alert-success") #{msg.success}
+    div(class="card ms-auto me-auto mt-5 pt-4 pb-5" style="max-width:1350px; min-width:768px;")
+        div(class="card-body container")
+            form(action="/ticketTypes/add" method="post" class="row")
+                div(class="col ps-0 pe-1")
+                    input(type="text" class="form-control" id="name" placeholder="Nazwa karnetu" name="name")
+                div(class="col ps-0 pe-1")
+                    input(type="text" class="form-control" id="price" placeholder="Cena" name="price")
+                div(class="col ps-0 pe-1")
+                    input(type="text" class="form-control" id="activeDays" placeholder="Dni ważnosci karnetu" name="activeDays")
+               
+                button(type="submit" class="btn btn-primary btn-sm col-1") dodaj
+            
+            div(class="mt-5" style="overflow: hidden;")
+                table(class="table")
+                    thead(class="thead-dark")
+                    thead(class="thead-dark")
+                        tr 
+                            th(scope="col") #
+                            th(scope="col") Nazwa Karnetu
+                            th(scope="col") Cena
+                            th(scope="col") Waznosć karnetu w dniach
+                    tbody()
+                        each ticketType in ticketTypes
+                            tr 
+                                th(scope="row")
+                                td #{ticketType.name}
+                                td #{ticketType.price}
+                                td #{ticketType.activeDays}
+                                td aktywny

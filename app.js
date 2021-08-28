@@ -7,6 +7,8 @@ var session = require('express-session');
 //routes
 const homeRoute = require('./routes/home/app');
 const customerRoute = require('./routes/customer/app');
+const discountRoute = require('./routes/discount/app');
+const ticketTypeRoute = require('./routes/ticketTypes/app');
 
 app.use(express.json());
 app.use(express.urlencoded());
@@ -16,6 +18,8 @@ app.set('view engine', 'pug');
 
 app.use('/', homeRoute);
 app.use('/customer', customerRoute);
+app.use('/discount', discountRoute);
+app.use('/ticketTypes', ticketTypeRoute);
 
 app.listen({ port: 5000}, async () => {
     'use strict';
