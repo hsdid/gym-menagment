@@ -9,7 +9,7 @@ block content
             if (msg.success)
                 div(class="alert alert-success") #{msg.success}
     div(class="card ms-auto me-auto mt-5 pt-4 pb-5" style="max-width:1350px; min-width:768px;")
-        div(class="card-body container")
+        div(class="card-body container" style="min-width:768px;")
             form(action="/customer/add" method="post" class="row")
                 div(class="col ps-0 pe-1")
                     input(type="text" class="form-control" id="firstName" placeholder="Imie" name="firstName")
@@ -33,8 +33,8 @@ block content
                     input(type="text" class="form-control" id="code" placeholder="kod karnetu" name="code")
 
                 button(type="submit" class="btn btn-primary btn-sm col-1") dodaj
-            div(class="mt-5" style="overflow: hidden;")
-                table(class="table")
+            div(class="mt-5 ms-auto me-auto" style="position: relative;")
+                table(class="table ms-auto me-auto")
                     thead(class="thead-dark")
                     thead(class="thead-dark")
                         tr 
@@ -42,24 +42,64 @@ block content
                             th(scope="col") Imie
                             th(scope="col") Nazwisko
                             th(scope="col") Numer
-                            th(scope="col") karnet
+                            th(scope="col") Zniżka 
+                            th(scope="col") Karnet
+                            th(scope="col") Kod
                             th(scope="col") Koniec karnetu
                             th(scope="col") Status
                     tbody()
                         each customer in customers
-                            tr 
+                            tr(data-customer id=customer.id) 
                                 th(scope="row")
                                 td #{customer.firstName}
                                 td #{customer.lastName}
                                 td #{customer.number}
+                                td #{customer.discount}
+                                td #{customer.ticket}
                                 td #{customer.code}
                                 td #{customer.dataTo}
                                 if (customer.active == true)
                                     td aktywny
                                 else if (customer.active == false)
                                     td nie aktywny
+                                    
+                div(onsubmit="submit" style="position: absolute; z-index: 1; display: none; background-color: white;" data-customerEditForm) 
+                    form(action="/customer/edit" method="post" class="row")
+                        div(class="col ps-0 pe-1")
+                            input(type="text" class="form-control" id="firstNameEdit" placeholder="Imie" name="firstName" data-customerEditValue)
+                        div(class="col ps-0 pe-1")
+                            input(type="text" class="form-control" id="lastNameEdit" placeholder="Nazwisko" name="lastName" data-customerEditValue)
+                        div(class="col-1 ps-0 pe-1")
+                            input(type="text" class="form-control" id="numberEdit" placeholder="Numer" name="number" data-customerEditValue)
                         
+                        div(class="col ps-0 pe-1")
+                            select#propertyType.select.form-control.input-lg(data-discountEdit name='discountId' data-customerEditValue)
+                                option(value="0" discount="0") Zniżka
+                                each val in discounts
+                                    option(value=val.dataValues.id discount=val.dataValues.discount) #{val.dataValues.name} (#{val.dataValues.discount} %)
                             
-                            
+                        div(class="col ps-0 pe-1")
+                            select#propertyType.select.form-control.input-lg(data-price name='ticketType' data-customerEditValue)
+                                option(value="") Karnet
+                                each val in types
+                                    option(data-price-optionEdit value=val.dataValues.id price=val.dataValues.price) #{val.dataValues.name}
+                        div(class="col ps-0 pe-1")
+                            input(type="text" class="form-control" id="codeEdit" placeholder="kod karnetu" name="code" data-customerEditValue)
 
-        
+                        div(class="col ps-0 pe-1")
+                            input(type="text" class="form-control" id="dataToEdit" placeholder="Koniec karnetu" name="dataTo" data-customerEditValue)
+                            
+                        div(class="col ps-0 pe-1")
+                            input(type="text" class="form-control" id="statusEdit" placeholder="Status" name="status" data-customerEditValue)
+
+                        input(type="hidden" data-editCustomerId)
+ 
+                        button(style="margin-left: 5px; width: 30px !important; height: 36px; border: none; padding: 0 !important;")
+                            <svg style="padding: 0;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="green" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                            </svg>
+                        button(type="reset" style="margin-left: 15px; width: 30px !important; height: 36px; border: none; padding: 0 !important;" data-btnCloseEditForm)
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
+                            </svg>
