@@ -2,6 +2,8 @@ const Joi = require('@hapi/joi');
 
 const customerValidation = data => {
     const schema = Joi.object({
+        id: Joi.number(),
+
         firstName: Joi.string()
             .min(2)
             .max(20)
@@ -31,11 +33,6 @@ const customerValidation = data => {
             .messages({
                 "number.empty": "choose discount"
             }),
-        ticketType: Joi.number()
-            .required()
-            .messages({
-                "number.empty": "choose tiket"
-            })
     });
 
     return schema.validate(data);
