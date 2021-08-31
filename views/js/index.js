@@ -1,5 +1,6 @@
 const priceOption = Array.from(document.querySelectorAll('[data-price-option]'));
 const priceOptionEdit = Array.from(document.querySelectorAll('[data-price-optionEdit]'));
+const discountOptionEdit = Array.from(document.querySelectorAll('[data-discount-optionEdit]'));
 const discount = document.querySelector('[data-discount]');
 const discountEdit = document.querySelector('[data-discountEdit]');
 const customer = Array.from(document.querySelectorAll('[data-customer]'));
@@ -11,13 +12,12 @@ const customerEditValue = document.querySelectorAll('[data-customerEditValue]');
 const innerHtmlPrice = new Array(priceOption.length);
 
 discount.addEventListener('input', handlerDiscount);
-discountEdit.addEventListener('input', handlerDiscountEdit);
+discountEdit.addEventListener('click', handlerDiscountEdit);
 btnCloseEditForm.addEventListener('click', () => { customerEditForm.style.display = "none"; });
 customer.map(e => e.addEventListener('click', handlerCustomerEdit));
 
 function handlerDiscount(e) {
-
-    let selectDiscount = e.target[e.target.value].attributes.discount.value;
+    const selectDiscount = e.target[e.target.value].attributes.discount.value;
 
     priceOption.map(e => {
         e.setAttribute('afterDiscount', e.getAttribute('price') - selectDiscount / 100 * e.getAttribute('price'));
@@ -26,7 +26,7 @@ function handlerDiscount(e) {
 }
 
 function handlerDiscountEdit(e) {
-    let selectDiscount = e.target[e.target.value].attributes.discount.value;
+    const selectDiscount = e.target[e.target.value].attributes.discount.value;
 
     priceOptionEdit.map(e => {
         e.setAttribute('afterDiscount', e.getAttribute('price') - selectDiscount / 100 * e.getAttribute('price'));
@@ -34,13 +34,17 @@ function handlerDiscountEdit(e) {
     });
 }
 
-function preDiscountEdit(e) {
-    for (i = 0; i <= customerEditValue.length; i++) {
-        if (customerEditValue[i].type == 'select-one') {
+function priceAfterDiscount(e) {
 
-            console.log(e.path[1].children[i + 1].innerHTML);
-        }
+    if (e.attributes.price) {
+        p = e.attributes.price.value;
     }
+
+    if (e.attributes.discount) {
+        d = e.attributes.discount.value;
+    }
+
+    console.log(p);
 }
 
 function handlerCustomerEdit(e) {
@@ -50,19 +54,23 @@ function handlerCustomerEdit(e) {
     customerEditForm.style.display = "";
 
     for (i = 0; i <= customerEditValue.length; i++) {
-        if (customerEditValue[i].type == 'select-one') {
-            const children = Array.from(customerEditValue[i].children);
 
-            children.map(q => {
-                if (q.innerHTML.includes(e.path[1].children[i + 1].innerHTML)) {
-                    q.setAttribute('selected', 'selected');
-                } else {
-                    q.removeAttribute('selected');
-                }
-            });
-        } else {
-            customerEditValue[i].setAttribute('value', e.path[1].children[i + 1].innerHTML);
-        }
+        Array.from(customerEditValue).map(w => {
+            if (w.type == 'select-one') {
+                const children = Array.from(customerEditValue[i].children);
+
+                children.map(q => {
+                    if (q.innerHTML.includes(e.path[1].children[i + 1].innerHTML)) {
+                        q.setAttribute('selected', 'selected');
+                        //priceAfterDiscount(q);
+                    } else {
+                        q.removeAttribute('selected');
+                    }
+                });
+            } else {
+                customerEditValue[i].setAttribute('value', e.path[1].children[i + 1].innerHTML);
+            }
+        });
     }
 }
 
