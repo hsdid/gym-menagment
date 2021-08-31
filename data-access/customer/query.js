@@ -3,20 +3,37 @@ const query = ({ models }) => {
         insertNewCustomer,
         findCustomerByNumber,
         findOneById,
-        findAll
+        findAll,
+        patchCustomer
     });
 
 
     async function insertNewCustomer({data}) {
         try {
             const Customer = models.Customer;
-                const res = await Customer.create(data);
+            const res = await Customer.create(data);
             return res;
         } catch (e) {
             console.log("Error: ", e);
         }
     }
-
+    
+    async function patchCustomer({data}){
+        try {
+            const Customer = models.Customer;
+            const res = await Customer.update(
+               data,
+               {
+                where: {
+                    id: data['id']
+                }
+            });
+            return res;
+        } catch (e) {
+            console.log("Error: ", e);
+        }
+    }
+    
     async function findOneById(id) {
         try {
             const Customer = models.Customer;

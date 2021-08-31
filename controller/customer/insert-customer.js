@@ -4,7 +4,7 @@ const customerAdd = ({ addCustomers, addTickets, codeExists, ticketValidation })
             const data = req.body;
             
             let ticketData = {
-                code: data.code,
+                code:         data.code,
                 ticketTypeId: data.ticketType
             }
             delete data['ticketType'];
