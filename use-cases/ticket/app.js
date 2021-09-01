@@ -4,18 +4,23 @@ const customerDb = require("../../data-access/customer/app");
 
 const addTicket = require("./insert-ticket");
 const codeExist = require('./code-exist');
-//const customerValidation = require("../../validation/customer");
+const updateTicket = require("./update-ticket");
+
+const ticketValidation = require("../../validation/ticket");
 
 const addTickets = addTicket({ ticketDb, ticketTypeDb, customerDb });
 const codeExists = codeExist({ ticketDb });
+const updateTickets = updateTicket({ ticketDb, ticketValidation })
 
 const services = Object.freeze({
     addTickets,
-    codeExists
+    codeExists,
+    updateTickets
 });
 
 module.exports = services;
 module.exports = {
     addTickets,
-    codeExists
+    codeExists,
+    updateTickets
 };
