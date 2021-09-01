@@ -7,7 +7,9 @@ const updateCustomer = ({ customerDb, customerValidation }) => {
             return {errors: error}
         }
 
-        const customer = await customerDb.patchCustomer({ data });
+        await customerDb.patchCustomer({ data });
+       
+        const customer = await customerDb.findOneById(data.id);
         return {customer};
     };
 };

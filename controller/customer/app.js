@@ -1,6 +1,7 @@
 //use-case
 const { addCustomers, updateCustomers } = require("../../use-cases/customer/app");
 const { addTickets, codeExists } = require('../../use-cases/ticket/app');
+const { updateTickets } = require("../../use-cases/ticket/app");
 //validation 
 const ticketValidation = require("../../validation/ticket");
 
@@ -10,7 +11,7 @@ const customersUpdate = require("./update-customer");
 
 //inject use-case
 const customerAdds = customerAdd({ addCustomers, addTickets, codeExists, ticketValidation });
-const customersUpdates = customersUpdate({ updateCustomers }); 
+const customersUpdates = customersUpdate({ updateCustomers, updateTickets }); 
 
 const services = Object.freeze({
     customerAdds,

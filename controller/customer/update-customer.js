@@ -1,6 +1,7 @@
-const customersUpdate = ({ updateCustomers }) => {
+const customersUpdate = ({ updateCustomers, updateTickets }) => {
     return async function puts(req, res, next) {
         const data = req.body;
+
         const customerData = {
             id: data.customerId,
             firstName: data.firstName,
@@ -18,7 +19,16 @@ const customersUpdate = ({ updateCustomers }) => {
             req.session.msg = msg;
             return res.redirect('/');
         }
-        
+
+        if (customer) {
+            ticket = await customer.getTicket();
+            
+            ticket.dataValues.code = data.code;
+            ticket.dataValues.dateTo = data.dataTo;
+            ticket.dataValues.ticketTypeId = data.ticketType;
+            console.log(ticket);
+            const updated = await updateTickets(ticket);
+        }
 
         msg = {
             success: 'Updated Succesfully'
