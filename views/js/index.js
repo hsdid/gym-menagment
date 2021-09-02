@@ -1,23 +1,22 @@
-const priceOption = Array.from(document.querySelectorAll('[data-price-option]'));
-const priceOptionEdit = Array.from(document.querySelectorAll('[data-price-optionEdit]'));
-const discountOptionEdit = Array.from(document.querySelectorAll('[data-discount-optionEdit]'));
+const tableCustomerRow = Array.from(document.querySelectorAll('[data-tableCustomerRow]'));
 const discount = document.querySelector('[data-discount]');
+const priceOption = Array.from(document.querySelectorAll('[data-price-option]'));
+const priceOptionEdit = Array.from(document.querySelectorAll('[data-editFormCustomerOptionTic]'));
 const discountEdit = document.querySelector('[data-discountEdit]');
-const customer = Array.from(document.querySelectorAll('[data-customer]'));
-const customerEditForm = document.querySelector('[data-customerEditForm]');
-const btnCloseEditForm = document.querySelector('[data-btnCloseEditForm]');
+const customerEditForm = document.querySelector('[data-editFormCustomer]');
+const btnCloseEditForm = document.querySelector('[data-btnCloseEditFormCustomer]');
 const editCustomerId = document.querySelector('[data-editCustomerId]');
-const customerEditValue = document.querySelectorAll('[data-customerEditValue]');
+const customerEditValue = Array.from(document.querySelectorAll('[data-editFormCustomerValue]'));
 
 const innerHtmlPrice = new Array(priceOption.length);
 
 discount.addEventListener('input', handlerDiscount);
-discountEdit.addEventListener('click', handlerDiscountEdit);
+discountEdit.addEventListener('input', handlerDiscountEdit);
 btnCloseEditForm.addEventListener('click', () => { customerEditForm.style.display = "none"; });
-customer.map(e => e.addEventListener('click', handlerCustomerEdit));
+tableCustomerRow.map(e => e.addEventListener('dblclick', handlerCustomerEdit));
 
 function handlerDiscount(e) {
-    const selectDiscount = e.target[e.target.value].attributes.discount.value;
+    const selectDiscount = e.target[e.target.value].getAttribute('discount');
 
     priceOption.map(e => {
         e.setAttribute('afterDiscount', e.getAttribute('price') - selectDiscount / 100 * e.getAttribute('price'));
@@ -26,7 +25,7 @@ function handlerDiscount(e) {
 }
 
 function handlerDiscountEdit(e) {
-    const selectDiscount = e.target[e.target.value].attributes.discount.value;
+    const selectDiscount = e.target[e.target.value].getAttribute('discount');
 
     priceOptionEdit.map(e => {
         e.setAttribute('afterDiscount', e.getAttribute('price') - selectDiscount / 100 * e.getAttribute('price'));
@@ -34,43 +33,44 @@ function handlerDiscountEdit(e) {
     });
 }
 
-function priceAfterDiscount(e) {
+function priceAfterDiscount() {
+    const selectDiscount = discountEdit.getAttribute('valueSelected');
 
-    if (e.attributes.price) {
-        p = e.attributes.price.value;
-    }
-
-    if (e.attributes.discount) {
-        d = e.attributes.discount.value;
-    }
-
-    console.log(p);
+    priceOptionEdit.map(e => {
+        e.setAttribute('afterDiscount', e.getAttribute('price') - selectDiscount / 100 * e.getAttribute('price'));
+        e.innerHTML = `${innerHtmlPrice[e.index - 1]}(${e.getAttribute('price') - selectDiscount / 100 * e.getAttribute('price')})zł`;
+    });
 }
 
 function handlerCustomerEdit(e) {
     editCustomerId.setAttribute("value", e.path[1].id);
-    customerEditForm.style.top = `${e.path[1].offsetTop + 2}px`;
+    customerEditForm.style.top = `${e.path[1].offsetTop + 1}px`;
     customerEditForm.style.height = `${e.path[1].offsetHeight - 2}px`;
+    window.addEventListener('resize', () => {
+        customerEditForm.style.top = `${e.path[1].offsetTop + 1}px`;
+        customerEditForm.style.height = `${e.path[1].offsetHeight - 2}px`;
+    });
     customerEditForm.style.display = "";
 
     for (i = 0; i <= customerEditValue.length; i++) {
-
-        Array.from(customerEditValue).map(w => {
-            if (w.type == 'select-one') {
-                const children = Array.from(customerEditValue[i].children);
-
-                children.map(q => {
-                    if (q.innerHTML.includes(e.path[1].children[i + 1].innerHTML)) {
-                        q.setAttribute('selected', 'selected');
-                        //priceAfterDiscount(q);
-                    } else {
-                        q.removeAttribute('selected');
-                    }
-                });
-            } else {
-                customerEditValue[i].setAttribute('value', e.path[1].children[i + 1].innerHTML);
-            }
-        });
+        if (customerEditValue[i].type == 'select-one') {
+            Array.from(customerEditValue[i].children).map(q => {
+                if (q.getAttribute('value').includes(e.path[1].children[i + 1].getAttribute('value'))) {
+                    q.setAttribute('selected', 'selected');
+                    customerEditValue[i].setAttribute('valueSelected', q.getAttribute(q.getAttribute('discount') ? 'discount' : 'price'));
+                    priceAfterDiscount();
+                }
+                else {
+                    q.removeAttribute('selected');
+                }
+            });
+        }
+        else if (customerEditValue[i].type == 'date') {
+            customerEditValue[i].setAttribute('value', e.path[1].children[i + 1].innerHTML.split("-").reverse().join("-"));
+        }
+        else {
+            customerEditValue[i].setAttribute('value', e.path[1].children[i + 1].innerHTML);
+        }
     }
 }
 

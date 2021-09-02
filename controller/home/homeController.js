@@ -30,7 +30,9 @@ const homeController = ({ findAllTicketTypes, findAllDiscounts, findAllCustomers
                 code: ticket.dataValues.code,
                 ticket: ticketType.dataValues.name,
                 dataTo: formatDateTo,
-                active: active
+                active: active,
+                discountId: customer.dataValues.discountId,
+                ticketId: ticketType.dataValues.id
             };
 
             formatCustomer.push(data);

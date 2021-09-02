@@ -20,7 +20,7 @@ block content
                
                 button(type="submit" class="btn btn-primary btn-sm col-1") dodaj
             
-            div(class="mt-5" style="overflow: hidden;")
+            div(class="mt-5" style="position: relative;")
                 table(class="table")
                     thead(class="thead-dark")
                     thead(class="thead-dark")
@@ -31,9 +31,36 @@ block content
                             th(scope="col") Waznosć karnetu w dniach
                     tbody()
                         each ticketType in ticketTypes
-                            tr 
+                            tr(data-tableTicketRow id=ticketType.id style="cursor: pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="Kliknij 2 razy aby edytować")
                                 th(scope="row")
                                 td #{ticketType.name}
                                 td #{ticketType.price}
                                 td #{ticketType.activeDays}
                                 td aktywny
+                
+                div(style="position: absolute; z-index: 1; background-color: white; display: none; width: 100%;" data-editFormTicket)
+                    form(action="/ticket/Edit" method="post" class="row")
+                        div(class="col ps-0 pe-1")
+                            input(type="text" class="form-control" id="nameEdit" placeholder="Nazwa Karnetu" name="nameEdit" data-editFormTicketValue)
+
+                        div(class="col ps-0 pe-1")
+                            input(type="text" class="form-control" id="discountEdit" placeholder="Cena" name="priceEdit" data-editFormTicketValue)
+
+                        div(class="col ps-0 pe-1")
+                            input(type="text" class="form-control" id="dataEdit" placeholder="Waznosć karnetu w dniach" name="dataEdit" data-editFormTicketValue)
+
+                        div(class="col ps-0 pe-1")
+                            input(type="text" class="form-control" id="statusEdit" placeholder="Status" name="statusEdit" data-editFormTicketValue)
+
+                        input(type="hidden" data-editTicketId name="id") 
+                        
+                        button(style="margin-left: 5px; width: 30px !important; height: 36px; border: none; padding: 0 !important;" data-bs-toggle="tooltip" data-bs-placement="top" title="Edytuj")
+                            <svg style="padding: 0;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="green" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                            </svg>
+
+                        button(type="reset" style="margin-left: 15px; width: 30px !important; height: 36px; border: none; padding: 0 !important; background-color: white !important;" data-bs-toggle="tooltip" data-bs-placement="top" title="Anuluj" data-btnCloseEditFormTicket)
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
+                            </svg>
