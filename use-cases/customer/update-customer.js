@@ -6,6 +6,8 @@ const updateCustomer = ({ customerDb, customerValidation }) => {
         if(error) {
             return {errors: error}
         }
+        
+        console.log('sss');
 
         await customerDb.patchCustomer({ data });
        

@@ -2,6 +2,7 @@ const Joi = require('@hapi/joi');
 
 const ticketTypeValidation = data => {
     const schema = Joi.object({
+        id: Joi.number(),
         name: Joi.string()
             .min(3)
             .required()
@@ -20,7 +21,9 @@ const ticketTypeValidation = data => {
             .messages({
                 "number.base": "Active days must be number",
                 "number.empty": "Active days cant be empty",
-            })
+        }),
+        createdAt: Joi.date(),
+        updatedAt: Joi.date(),
     });
 
     return schema.validate(data);

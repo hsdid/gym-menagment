@@ -2,7 +2,8 @@ const query = ({ models }) => {
     return Object.freeze({
         findAll,
         findOneById,
-        insertNewTicketType
+        insertNewTicketType,
+        patchTicketType
     });
 
     async function findAll() {
@@ -20,6 +21,23 @@ const query = ({ models }) => {
             const TicketType = models.TicketType; 
             const res = await TicketType.create(data);
 
+            return res;
+        } catch (e) {
+            console.log("Error: ", e);
+        }
+    }
+
+    async function patchTicketType(data) {
+        try {
+            console.log('data-acces' , data);
+            const TicketType = models.TicketType;
+            const res = await TicketType.update(
+                data.dataValues,
+                {
+                    where:{
+                        id: data.dataValues.id
+                    }
+                });
             return res;
         } catch (e) {
             console.log("Error: ", e);

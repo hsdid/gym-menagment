@@ -39,18 +39,18 @@ block content
                                 td aktywny
                 
                 div(style="position: absolute; z-index: 1; background-color: white; display: none; width: 100%;" data-editFormTicket)
-                    form(action="/ticket/Edit" method="post" class="row")
+                    form(action="/ticketTypes/edit" method="post" class="row")
                         div(class="col ps-0 pe-1")
-                            input(type="text" class="form-control" id="nameEdit" placeholder="Nazwa Karnetu" name="nameEdit" data-editFormTicketValue)
+                            input(type="text" class="form-control" id="nameEdit" placeholder="Nazwa Karnetu" name="name" data-editFormTicketValue)
 
                         div(class="col ps-0 pe-1")
-                            input(type="text" class="form-control" id="discountEdit" placeholder="Cena" name="priceEdit" data-editFormTicketValue)
+                            input(type="text" class="form-control" id="discountEdit" placeholder="Cena" name="price" data-editFormTicketValue)
 
                         div(class="col ps-0 pe-1")
-                            input(type="text" class="form-control" id="dataEdit" placeholder="Waznosć karnetu w dniach" name="dataEdit" data-editFormTicketValue)
+                            input(type="text" class="form-control" id="dataEdit" placeholder="Waznosć karnetu w dniach" name="activeDays" data-editFormTicketValue)
 
                         div(class="col ps-0 pe-1")
-                            input(type="text" class="form-control" id="statusEdit" placeholder="Status" name="statusEdit" data-editFormTicketValue)
+                            input(type="text" class="form-control" id="statusEdit" placeholder="Status" name="status" data-editFormTicketValue)
 
                         input(type="hidden" data-editTicketId name="id") 
                         

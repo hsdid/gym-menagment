@@ -1,10 +1,9 @@
 const updateTicket = ({ ticketDb, ticketValidation }) => {
     return async function put(data) {
-
+        console.log('updated ticket' , data);
         const {error} = ticketValidation(data.dataValues);
         
         if(error) {
-            console.log('aaaa ' + error);
             return {errors: error}
         }
         

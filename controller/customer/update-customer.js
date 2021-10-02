@@ -3,30 +3,30 @@ const customersUpdate = ({ updateCustomers, updateTickets }) => {
         const data = req.body;
 
         const customerData = {
-            id: data.customerId,
+            id: req.params.id,
             firstName: data.firstName,
             lastName: data.lastName,
             number: data.number,
             discountId: data.discountId
         };
-
-       const { customer, errors } = await updateCustomers(customerData);
+        
+        const { customer, errors } = await updateCustomers(customerData);
        
         if (errors) {
             msg = {
                 error: errors.details[0].message
             }
             req.session.msg = msg;
-            return res.redirect('/');
+            return res.send({msg: msg});
         }
 
         if (customer) {
+           
             ticket = await customer.getTicket();
             
             ticket.dataValues.code = data.code;
             ticket.dataValues.dateTo = data.dataTo;
             ticket.dataValues.ticketTypeId = data.ticketType;
-            console.log(ticket);
             const updated = await updateTickets(ticket);
         }
 
@@ -36,7 +36,7 @@ const customersUpdate = ({ updateCustomers, updateTickets }) => {
         
         req.session.msg = msg;
 
-        return res.redirect('/');
+        return res.send({msg: msg, customer:customer});
     }
 }
 

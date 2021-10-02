@@ -1,4 +1,4 @@
-const homeController = ({ findAllTicketTypes, findAllDiscounts, findAllCustomers, customerActive }) => {
+const homeController = ({ findAllTicketTypes, findAllDiscounts, findAllCustomers, customerActive, dateFormat }) => {
     return async function getAll(req, res, next) {
 
         const discounts = await findAllDiscounts();
@@ -14,11 +14,9 @@ const homeController = ({ findAllTicketTypes, findAllDiscounts, findAllCustomers
             const ticketType = await ticket.getTicketType();
             const discount = await customer.getDiscount();
 
-            let d = ticket.dataValues.dateTo
-            let day = d.getDate();
-            let month = d.getMonth() + 1;
-            let year = d.getFullYear();
-            let formatDateTo = day + '-' + month + '-' + year;
+            let d = ticket.dataValues.dateTo;
+            
+            let formatDate = dateFormat(d);
             let active = customerActive(d);
 
             let data = {
@@ -29,7 +27,7 @@ const homeController = ({ findAllTicketTypes, findAllDiscounts, findAllCustomers
                 number: customer.dataValues.number,
                 code: ticket.dataValues.code,
                 ticket: ticketType.dataValues.name,
-                dataTo: formatDateTo,
+                dataTo: formatDate,
                 active: active,
                 discountId: customer.dataValues.discountId,
                 ticketId: ticketType.dataValues.id
@@ -40,7 +38,7 @@ const homeController = ({ findAllTicketTypes, findAllDiscounts, findAllCustomers
 
         msg = req.session.msg;
 
-        return res.render('pages/index', { types: ticketTypes, discounts: discounts, customers: formatCustomer, msg: msg });
+        return res.send({types: ticketTypes, discounts: discounts, customers: formatCustomer, msg: msg});
     }
 }
 

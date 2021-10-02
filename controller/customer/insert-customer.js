@@ -15,8 +15,8 @@ const customerAdd = ({ addCustomers, addTickets, codeExists, ticketValidation })
                 msg = {
                     error: error.details[0].message
                 }
-                req.session.msg = msg;
-                return res.redirect('/');
+               
+                return res.send({msg: msg});
             }
             //check code is unique 
             const exist = await codeExists(ticketData.code);
@@ -24,9 +24,12 @@ const customerAdd = ({ addCustomers, addTickets, codeExists, ticketValidation })
                 msg = {
                     error: 'ticket with this code already exitst'
                 }
-                req.session.msg = msg;
-                return res.redirect('/');
+               
+                return res.send({msg: msg});
             }
+            //To do check discount with guiven id exist
+            
+            // 
 
             const {customer, errors} = await addCustomers(data);
 
@@ -35,28 +38,26 @@ const customerAdd = ({ addCustomers, addTickets, codeExists, ticketValidation })
                     msg = {
                         error: errors.details[0].message
                     }
-                    req.session.msg = msg;
-                    return res.redirect('/');
+                    
+                    return res.send({msg: msg});
                 }
                 if (!data.discountId) {
                     msg = {
                         error: 'discount is not correct'
                     }
-                    req.session.msg = msg;
-                    return res.redirect('/');
+                   
+                    return res.send({msg: msg});
                 }
             }
-
+            
             ticketData['customerId'] = customer.dataValues.id;
             
             const ticket = await addTickets(ticketData);
             msg = {
                 success: 'Dodano prawidłowo'
             }
-            
-            req.session.msg = msg;
 
-            return res.redirect('/');
+            return res.send({customer: customer, ticket: ticket, msg: msg});
         }
     }
 }
