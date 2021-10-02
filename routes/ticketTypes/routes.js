@@ -1,8 +1,8 @@
-const { ticketTypeAdd, pageTicketType, ticketTypeUpdates } = require('../../controller/ticketType/app');
+const { ticketTypeAdd, ticketTypeSelects, ticketTypeUpdates } = require('../../controller/ticketType/app');
 const route = ({ router }) => {
 
     router.post('/add', ticketTypeAdd)
-        .get('/', pageTicketType)
+        .get('/', ticketTypeSelects)
         .post('/edit', ticketTypeUpdates);
 
     return router;
