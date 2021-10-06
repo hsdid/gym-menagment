@@ -22,6 +22,7 @@ const ticketTypeValidation = data => {
                 "number.base": "Active days must be number",
                 "number.empty": "Active days cant be empty",
         }),
+        status: Joi.boolean(),
         createdAt: Joi.date(),
         updatedAt: Joi.date(),
     });

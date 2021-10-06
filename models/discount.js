@@ -22,6 +22,11 @@ module.exports = (sequelize, DataTypes) => {
     discount: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     }
   }, {
     sequelize,

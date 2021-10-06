@@ -14,7 +14,8 @@ const discountValidation = data => {
         .messages({
             "number.base": "discount must be in number",
             "number.empty": "discount cant be empty",
-        })
+        }),
+        status: Joi.boolean(),
     });
 
     return schema.validate(data);
