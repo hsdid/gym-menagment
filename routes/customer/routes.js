@@ -4,7 +4,7 @@ const route = ({ router }) => {
     
     router.get('/', customersSelects);
 
-    router.post('/', customerAdds);
+    router.post('/add', customerAdds);
 
     router.patch('/:id', customersUpdates)
 

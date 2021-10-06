@@ -16,10 +16,10 @@ app.use(session({secret: "Shh, its a secret!"}));
 app.set('views','./views');
 app.set('view engine', 'pug');
 
-app.use('/', homeRoute);
+
 app.use('/customer', customerRoute);
 app.use('/discount', discountRoute);
-app.use('/ticketTypes', ticketTypeRoute);
+app.use('/ticket', ticketTypeRoute);
 
 app.listen({ port: 5000}, async () => {
     'use strict';

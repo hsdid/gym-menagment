@@ -9,16 +9,15 @@ const addTicketType = ({ addTicketTypes }) => {
                     msg = {
                         error: errors.details[0].message
                     };
-                    req.session.msg = msg;
-                    return res.redirect('/ticketTypes');
+                    
+                    return res.send({msg: msg});
                 }
                
                 msg = {
                     success: 'Ticket saved'
                 };
-            req.session.msg = msg;
 
-            return res.redirect('/ticketTypes');
+            return res.send({msg: msg, ticket: ticketType});
         }
     }
 }

@@ -9,16 +9,15 @@ const addDiscount = ({ addDiscounts }) => {
                     msg = {
                         error: errors.details[0].message
                     }
-                    req.session.msg = msg;
-                    return res.redirect('/discount');
+                    
+                    return res.send({msg: msg});
                 }
                
                 msg = {
                     success: 'Discount saved'
                 }
-            req.session.msg = msg;
 
-            return res.redirect('/discount');
+            return res.send({msg: msg, discount:discount});
         }
     }
 }

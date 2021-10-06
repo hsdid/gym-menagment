@@ -21,31 +21,19 @@ const customerSelect = ({ findAllCustomers, dateFormat, customerActive}) => {
             let active = customerActive(d);
 
             let data = {
+                
                 customer: {
                     id: customer.dataValues.id,
                     firstName: customer.dataValues.firstName,
                     lastName: customer.dataValues.lastName,
                     number: customer.dataValues.number,
-                    discount: {
-                        id: customer.dataValues.discountId,
-                        name: discount.dataValues.name,
-                        discount: discount.dataValues.discount
-                    },
-                    ticket: {
-                        id: ticketType.dataValues.id,
-                        name: ticketType.dataValues.name,
-                        code: ticket.dataValues.code,
-                        finalPrice: ticket.dataValues.finalPrice,
-                        dataTo: formatDate,
-                        active: active,
-                    }
+                    discount: discount,
+                    ticket: ticket
                 }
             };
 
             formatCustomer.push(data);
         }
-
-        msg = req.session.msg;
 
         return res.send({customers: formatCustomer, msg: msg});
     }
