@@ -29,7 +29,7 @@ const customerAdd = ({ addCustomers, addTickets, codeExists, ticketValidation })
             }
             //To do check discount with guiven id exist
             
-            // 
+            // check ticketType exist 
 
             const {customer, errors} = await addCustomers(data);
 

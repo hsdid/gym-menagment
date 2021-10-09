@@ -8,17 +8,14 @@ const ticketTypeUpdate = ({ updateTicketTypes }) => {
             msg = {
                 error: errors.details[0].message
             }
-            req.session.msg = msg;
-            return res.redirect('/ticketTypes');
+            return res.send({msg: msg});
         }
 
         msg = {
             success: 'Updated Succesfully'
         }
-        
-        req.session.msg = msg;
 
-        return res.redirect('/ticketTypes');
+        return res.send({msg: msg, ticket: ticketType});
     }
 }
 

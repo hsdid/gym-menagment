@@ -1,10 +1,18 @@
-const discountSelect = ({ findAllDiscounts }) => {
+const oneDiscountSelect = ({ findDiscount }) => {
     return async function getAll(req, res, next) {
 
-        const discounts   = await findAllDiscounts();
+        const {discount, errors} = await findDiscount(req.params.id);
+        
+        if (errors) {
+            msg = {
+                error: errors
+            }
+            
+            return res.send({msg: msg});
+        }
 
-        return res.send({discounts: discounts});
+        return res.send({discount: discount});
     }
 }
 
-module.exports =  discountSelect;
+module.exports = oneDiscountSelect;

@@ -1,7 +1,8 @@
 const query = ({ models }) => {
     return Object.freeze({
         findAll,
-        insertNewDiscount
+        insertNewDiscount,
+        findOneById
     });
 
     async function findAll() {
@@ -24,6 +25,18 @@ const query = ({ models }) => {
             console.log("Error: ", e);
         }
     };
+
+    async function findOneById(id) {
+        try {
+            const Discount = models.Discount;
+            const res = await Discount.findOne({where:{
+                id: id
+            }});
+            return res;
+        } catch (e) {
+            console.log("Error: ", e);
+        }
+    }
 
 }
 

@@ -21,21 +21,18 @@ const customerSelect = ({ findAllCustomers, dateFormat, customerActive}) => {
             let active = customerActive(d);
 
             let data = {
-                
-                customer: {
                     id: customer.dataValues.id,
                     firstName: customer.dataValues.firstName,
                     lastName: customer.dataValues.lastName,
                     number: customer.dataValues.number,
                     discount: discount,
                     ticket: ticket
-                }
             };
 
             formatCustomer.push(data);
         }
 
-        return res.send({customers: formatCustomer, msg: msg});
+        return res.send({customers: formatCustomer});
     }
 }
 

@@ -12,6 +12,12 @@ const updateCustomer = ({ customerDb, customerValidation }) => {
         await customerDb.patchCustomer({ data });
        
         const customer = await customerDb.findOneById(data.id);
+
+        if (!customer) {
+            error = 'cant find customer';
+            return {errors: error}
+        }
+
         return {customer};
     };
 };

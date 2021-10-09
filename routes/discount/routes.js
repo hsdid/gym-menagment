@@ -1,9 +1,10 @@
-const { discountAdds, discountSelects } = require('../../controller/discount/app');
+const { discountAdds, discountSelects, discountSelect } = require('../../controller/discount/app');
 
 const route = ({ router }) => {
 
     router.post('/add', discountAdds)
-        .get('/', discountSelects);
+        .get('/', discountSelects)
+        .get('/:id', discountSelect);
 
     return router;
 }
