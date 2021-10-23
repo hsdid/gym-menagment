@@ -1,16 +1,20 @@
-const customerSelect = ({ findAllCustomers, dateFormat, customerActive}) => {
+const customerSelect = ({ findAllCustomers, dateFormat, customerActive, findPagination}) => {
     return async function getAll(req, res, next) {
         const headers = {
             "Content-Type": "application/json",
           };
 
-        const customers = await findAllCustomers();
+        let size = req.query.size;
+        const { page, order }  = req.query;
+       
+
+        const customers = await findPagination({page, size, order});
         
         // foramt customer data 
         let formatCustomer = [];
 
-        for (i = 0; i < customers.length; i++) {
-            let customer = customers[i];
+        for (i = 0; i < customers.rows.length; i++) {
+            let customer = customers.rows[i];
             const ticket = await customer.getTicket();
             const ticketType = await ticket.getTicketType();
             const discount = await customer.getDiscount();
@@ -31,8 +35,11 @@ const customerSelect = ({ findAllCustomers, dateFormat, customerActive}) => {
 
             formatCustomer.push(data);
         }
+        if (size === undefined) {
+            size = 100;
+        }
 
-        return res.send({customers: formatCustomer});
+        return res.send({customers: formatCustomer, totalPages: Math.ceil(customers.count / Number.parseInt(size))});
     }
 }
 

@@ -4,7 +4,8 @@ const query = ({ models }) => {
         findCustomerByNumber,
         findOneById,
         findAll,
-        patchCustomer
+        patchCustomer,
+        findPaginationCustomer
     });
 
 
@@ -50,6 +51,23 @@ const query = ({ models }) => {
         try {
             const Customer = models.Customer;
             const res = await Customer.findAll();
+            return res;
+        } catch (e) {
+            console.log("Error: ", e);
+        }
+    }
+
+    async function findPaginationCustomer({limit, offset, finalOrder}) {
+        try {
+            const Customer = models.Customer;
+            const res = await Customer.findAndCountAll({
+                limit: limit,
+                offset: offset,
+                order: [
+                    ['id', finalOrder]
+                ]
+            });
+
             return res;
         } catch (e) {
             console.log("Error: ", e);

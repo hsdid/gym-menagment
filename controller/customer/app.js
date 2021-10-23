@@ -1,5 +1,5 @@
 //use-case
-const { addCustomers, updateCustomers, findAllCustomers, findCustomer } = require("../../use-cases/customer/app");
+const { addCustomers, updateCustomers, findAllCustomers, findCustomer, findPagination } = require("../../use-cases/customer/app");
 const { addTickets, codeExists } = require('../../use-cases/ticket/app');
 const { updateTickets } = require("../../use-cases/ticket/app");
 const dateFormat = require("../../helper/format-date");
@@ -16,7 +16,7 @@ const onecustomerSelect = require("./select-customer");
 //inject use-case
 const customerAdds = customerAdd({ addCustomers, addTickets, codeExists, ticketValidation });
 const customersUpdates = customersUpdate({ updateCustomers, updateTickets }); 
-const customersSelects = customersSelect({findAllCustomers, dateFormat, customerActive});
+const customersSelects = customersSelect({findAllCustomers, dateFormat, customerActive, findPagination});
 const onecustomerSelects = onecustomerSelect({ findCustomer });
 
 const services = Object.freeze({
