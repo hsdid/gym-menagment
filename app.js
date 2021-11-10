@@ -3,6 +3,7 @@ const app     = express();
 const { sequelize } = require('./models');
 const path = require('path');
 var session = require('express-session');
+var cors = require('cors');
 
 //routes
 const homeRoute = require('./routes/home/app');
@@ -12,10 +13,7 @@ const ticketTypeRoute = require('./routes/ticketTypes/app');
 
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(session({secret: "Shh, its a secret!"}));
-app.set('views','./views');
-app.set('view engine', 'pug');
-
+app.use(cors());
 
 app.use('/customer', customerRoute);
 app.use('/discount', discountRoute);

@@ -1,10 +1,11 @@
 const customerSelect = ({ findAllCustomers, dateFormat, customerActive, findPagination}) => {
     return async function getAll(req, res, next) {
-        const headers = {
-            "Content-Type": "application/json",
-          };
+   
+        let size = 10;
+        if (req.query.size !== undefined) {
+            size = req.query.size;
+        }
 
-        let size = req.query.size;
         const { page, order }  = req.query;
        
 
@@ -35,11 +36,30 @@ const customerSelect = ({ findAllCustomers, dateFormat, customerActive, findPagi
 
             formatCustomer.push(data);
         }
-        if (size === undefined) {
-            size = 100;
+
+        totalPages = Math.ceil(customers.count / Number.parseInt(customers.pageSize));
+
+
+        
+        if ( totalPages-1 == page ) {
+            nextPageLink = null;
+            prevPage = parseInt(page) - 1;
+            prevPageLink = '/customer/?page='+prevPage+'&size='+size;
+
+        } else if ( page == 0) {
+            nextPage = parseInt(page) + 1;
+            nextPageLink = '/customer/?page='+nextPage+'&size='+size;
+            prevPageLink = null;
+
+        } else {
+            nextPage = parseInt(page) + 1;
+            prevPage = parseInt(page) - 1;
+            nextPageLink = '/customer/?page='+nextPage+'&size='+size;
+            prevPageLink = '/customer/?page='+prevPage+'&size='+size;
         }
 
-        return res.send({customers: formatCustomer, totalPages: Math.ceil(customers.count / Number.parseInt(size))});
+
+        return res.send({customers: formatCustomer, totalPages: Math.ceil(customers.count / Number.parseInt(customers.pageSize)), nextPage: nextPageLink, prevPage: prevPageLink});
     }
 }
 

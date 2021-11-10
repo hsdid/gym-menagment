@@ -1,11 +1,12 @@
-const query = ({ models }) => {
+const query = ({ models, Op }) => {
     return Object.freeze({
         insertNewCustomer,
         findCustomerByNumber,
         findOneById,
         findAll,
         patchCustomer,
-        findPaginationCustomer
+        findPaginationCustomer,
+        search
     });
 
 
@@ -55,6 +56,24 @@ const query = ({ models }) => {
         } catch (e) {
             console.log("Error: ", e);
         }
+    }
+
+    async function search({query, field}) {
+        try {
+            const Customer = models.Customer;
+            const res = await Customer.findAndCountAll({
+                where: {
+                    [field]: {
+                       [Op.like]: `%${query}%`
+                    }
+                }
+            });
+            return res;
+
+        } catch (e) {
+            console.log("Error: ", e);
+        }
+
     }
 
     async function findPaginationCustomer({limit, offset, finalOrder}) {

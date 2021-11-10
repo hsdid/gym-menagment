@@ -11,9 +11,8 @@ const findPaginationCustomer = ({ customerDb }) => {
           pageNr = pageAsNumber;
         }
       
-        let sizeNr = 100;
-        if(!Number.isNaN(sizeAsNumber) && !(sizeAsNumber > 10) && !(sizeAsNumber < 1)){
-          sizeNr = sizeAsNumber;
+        if(!Number.isNaN(sizeAsNumber) && !(sizeAsNumber > 100) && !(sizeAsNumber < 1)){
+          pageSize = sizeAsNumber;
         }
 
         let finalOrder = 'DESC';
@@ -21,10 +20,11 @@ const findPaginationCustomer = ({ customerDb }) => {
             finalOrder = order;
         }
 
-        const limit = sizeNr;
-        const offset = pageNr * sizeNr;
+        const limit = pageSize;
+        const offset = pageNr * pageSize;
 
         const customers = await customerDb.findPaginationCustomer({limit, offset, finalOrder});
+        customers['pageSize'] = pageSize;
         return customers;
     };
 };
