@@ -1,4 +1,5 @@
 const customerDb = require("../../data-access/customer/app");
+const customerHelper = require("../../helper/customer/app");
 //use-cases
 const addCustomer = require("./insert-customer");
 const findAllCustomer = require("./find-all");
@@ -14,7 +15,7 @@ const addCustomers = addCustomer({ customerDb, customerValidation });
 const updateCustomers = updateCustomer({ customerDb, customerValidation});
 const findAllCustomers = findAllCustomer({ customerDb });
 const findCustomer = findOneCustomer({ customerDb });
-const findPagination = findPaginationCustomer({ customerDb });
+const findPagination = findPaginationCustomer({ customerDb, customerHelper });
 const searchCustomer = searchCustomers({ customerDb });
 
 const services = Object.freeze({

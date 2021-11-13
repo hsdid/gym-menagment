@@ -2,11 +2,12 @@ const customerAdd = ({ addCustomers, addTickets, codeExists, ticketValidation })
     return async function post(req, res, next) { 
         if (req.method === 'POST') {
             const data = req.body;
-            
+
             let ticketData = {
                 code: data.code,
                 ticketTypeId: data.ticketType
             }
+           
             delete data['ticketType'];
             delete data['code'];
             //validate ticket simple data 

@@ -2,7 +2,6 @@ const express = require('express');
 const app     = express();
 const { sequelize } = require('./models');
 const path = require('path');
-var session = require('express-session');
 var cors = require('cors');
 
 //routes

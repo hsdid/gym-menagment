@@ -6,7 +6,6 @@ const dateFormat = require("../../helper/format-date");
 const customerActive = require("../../helper/customer/is-active");
 //validation 
 const ticketValidation = require("../../validation/ticket");
-var cors = require('cors');
 
 //controller 
 const customerAdd = require("./insert-customer");

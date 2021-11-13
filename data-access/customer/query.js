@@ -76,14 +76,14 @@ const query = ({ models, Op }) => {
 
     }
 
-    async function findPaginationCustomer({limit, offset, finalOrder}) {
+    async function findPaginationCustomer({limit, offset, order}) {
         try {
             const Customer = models.Customer;
             const res = await Customer.findAndCountAll({
                 limit: limit,
                 offset: offset,
                 order: [
-                    ['id', finalOrder]
+                    ['id', order]
                 ]
             });
 
