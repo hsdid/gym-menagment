@@ -1,9 +1,10 @@
-const query = ({ models }) => {
+const query = ({ models, Op }) => {
     return Object.freeze({
         findAll,
         findOneById,
         insertNewTicketType,
-        patchTicketType
+        patchTicketType,
+        search
     });
 
     async function findAll() {
@@ -56,6 +57,23 @@ const query = ({ models }) => {
         }
     }
 
+    async function search({query, field}) {
+        try {
+            const TicketType = models.TicketType;
+            const res = await TicketType.findAndCountAll({
+                where: {
+                    [field]: {
+                       [Op.like]: `%${query}%`
+                    }
+                }
+            });
+            return res;
+
+        } catch (e) {
+            console.log("Error: ", e);
+        }
+
+    }
 }
 
 module.exports = query;

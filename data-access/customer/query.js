@@ -73,7 +73,6 @@ const query = ({ models, Op }) => {
         } catch (e) {
             console.log("Error: ", e);
         }
-
     }
 
     async function findPaginationCustomer({limit, offset, order}) {
