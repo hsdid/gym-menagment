@@ -2,6 +2,10 @@ const Joi = require('@hapi/joi');
 
 const ticketValidation = data => {
     const schema = Joi.object({
+        id: Joi.number(),
+        finalPrice: Joi.number(),
+        customerId: Joi.number(),
+        dateTo: Joi.date(),
         code: Joi.string()
             .min(5)
             .max(5)
@@ -17,6 +21,8 @@ const ticketValidation = data => {
                 "number.base": "ticket cant be empty",
                 "number.empty": "ticket cant be empty",
             }),
+        createdAt: Joi.date(),
+        updatedAt: Joi.date(),
     });
 
     return schema.validate(data);

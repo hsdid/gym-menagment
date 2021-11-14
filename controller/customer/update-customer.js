@@ -1,6 +1,16 @@
-const customersUpdate = ({ updateCustomers, updateTickets }) => {
+const customersUpdate = ({ updateCustomers, updateTickets, codeExists }) => {
     return async function puts(req, res, next) {
         const data = req.body;
+        
+         //check code is unique 
+         const exist = await codeExists(data.code);
+         if (exist) {
+             msg = {
+                 error: 'ticket with this code already exitst'
+             }
+            
+             return res.send({msg: msg});
+         }
 
         const customerData = {
             id: req.params.id,
@@ -26,7 +36,14 @@ const customersUpdate = ({ updateCustomers, updateTickets }) => {
             ticket.dataValues.code = data.code;
             ticket.dataValues.dateTo = data.dataTo;
             ticket.dataValues.ticketTypeId = data.ticketType;
-            const updated = await updateTickets(ticket);
+            const { updated, errors } = await updateTickets(ticket);
+
+            if (errors) {
+                msg = {
+                    error: errors.details[0].message
+                }
+                return res.send({msg: msg});
+            }
         }
 
         msg = {

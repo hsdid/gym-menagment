@@ -2,6 +2,7 @@ const Joi = require('@hapi/joi');
 
 const discountValidation = data => {
     const schema = Joi.object({
+        id: Joi.number(),
         name: Joi.string()
             .min(3)
             .required()

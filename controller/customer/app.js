@@ -16,7 +16,7 @@ const searchCustomers = require("./search-customers");
 
 //inject use-case
 const customerAdds = customerAdd({ addCustomers, addTickets, codeExists, ticketValidation });
-const customersUpdates = customersUpdate({ updateCustomers, updateTickets }); 
+const customersUpdates = customersUpdate({ updateCustomers, updateTickets, codeExists }); 
 const customersSelects = customersSelect({findAllCustomers, dateFormat, customerActive, findPagination});
 const onecustomerSelects = onecustomerSelect({ findCustomer });
 const customerSearch = searchCustomers({ searchCustomer })
