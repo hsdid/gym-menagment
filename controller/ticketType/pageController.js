@@ -3,9 +3,9 @@ const ticketTypePage = ({ findAllTicketTypes }) => {
 
         const ticketType  = await findAllTicketTypes();
 
-        msg = req.session.msg;
+        
 
-        return res.render('pages/ticketType', {ticketTypes: ticketType, msg: msg });
+        return res.render('pages/ticketType', {ticketTypes: ticketType});
     }
 }
 module.exports = ticketTypePage;

@@ -36,9 +36,9 @@ const homeController = ({ findAllTicketTypes, findAllDiscounts, findAllCustomers
             formatCustomer.push(data);
         }
 
-        msg = req.session.msg;
+     
 
-        return res.send({types: ticketTypes, discounts: discounts, customers: formatCustomer, msg: msg});
+        return res.send({types: ticketTypes, discounts: discounts, customers: formatCustomer});
     }
 }
 

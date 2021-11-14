@@ -16,7 +16,6 @@ const customersUpdate = ({ updateCustomers, updateTickets }) => {
             msg = {
                 error: errors.details[0].message
             }
-            req.session.msg = msg;
             return res.send({msg: msg});
         }
 
@@ -33,8 +32,6 @@ const customersUpdate = ({ updateCustomers, updateTickets }) => {
         msg = {
             success: 'Updated Succesfully'
         }
-        
-        req.session.msg = msg;
 
         return res.send({msg: msg, customer:customer});
     }
