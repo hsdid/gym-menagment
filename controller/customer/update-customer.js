@@ -51,7 +51,29 @@ const customersUpdate = ({ updateCustomers, updateTickets, codeExists }) => {
             success: 'Updated Succesfully'
         }
 
-        return res.send({msg: msg, customer:customer});
+        const ticketType = await ticket.getTicketType();
+        const discount = await customer.getDiscount();
+
+        let customerDataFormat = {
+            id: customer.dataValues.id,
+            firstName: customer.dataValues.firstName,
+            lastName: customer.dataValues.lastName,
+            number: customer.dataValues.number,
+            discount: discount,
+            ticket: {
+                id: ticket.dataValues.id,
+                code: ticket.dataValues.code,
+                finalPrice: ticket.dataValues.finalPrice,
+                dateTo: ticket.dataValues.dateTo,
+                createdAt: ticket.dataValues.createdAt,
+                updatedAt: ticket.dataValues.updatedAt,
+                customerId: ticket.dataValues.customerId,
+                ticketTypeId: ticket.dataValues.ticketTypeId,
+                name: ticketType.dataValues.name
+            }
+    };
+
+        return res.send({msg: msg, customer: customerDataFormat});
     }
 }
 
