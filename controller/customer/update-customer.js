@@ -22,8 +22,9 @@ const customersUpdate = ({ updateCustomers, updateTickets, codeExists }) => {
         if (customer) {
            
             ticket = await customer.getTicket();
-            console.log(data.code);
-            console.log(ticket.dataValues.code)
+            console.log(ticket.dataValues.dateTo);
+            console.log(data.dateTo);
+
             //check code is unique 
             const exist = await codeExists(data.code);
             if (exist && data.code !== ticket.dataValues.code) {
@@ -33,9 +34,11 @@ const customersUpdate = ({ updateCustomers, updateTickets, codeExists }) => {
             
                 return res.send({msg: msg});
             }
-
             ticket.dataValues.code = data.code;
-            ticket.dataValues.dateTo = data.dataTo;
+            if (data.dateTo !== undefined) {
+                ticket.dataValues.dateTo = data.dateTo;
+            }
+            console.log(ticket.dataValues.dateTo);
             ticket.dataValues.ticketTypeId = data.ticketType;
             const { updated, errors } = await updateTickets(ticket);
 

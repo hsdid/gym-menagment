@@ -58,7 +58,29 @@ const customerAdd = ({ addCustomers, addTickets, codeExists, ticketValidation })
                 success: 'Dodano prawidłowo'
             }
 
-            return res.send({customer: customer, ticket: ticket, msg: msg});
+            const discount = await customer.getDiscount();
+            const ticketType = await ticket.getTicketType();
+
+            let customerDataFormat = {
+                id: customer.dataValues.id,
+                firstName: customer.dataValues.firstName,
+                lastName: customer.dataValues.lastName,
+                number: customer.dataValues.number,
+                discount: discount,
+                ticket: {
+                    id: ticket.dataValues.id,
+                    code: ticket.dataValues.code,
+                    finalPrice: ticket.dataValues.finalPrice,
+                    dateTo: ticket.dataValues.dateTo,
+                    createdAt: ticket.dataValues.createdAt,
+                    updatedAt: ticket.dataValues.updatedAt,
+                    customerId: ticket.dataValues.customerId,
+                    ticketTypeId: ticket.dataValues.ticketTypeId,
+                    name: ticketType.dataValues.name
+                }
+            };
+
+            return res.send({customer: customerDataFormat, msg: msg});
         }
     }
 }
