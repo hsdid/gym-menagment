@@ -6,7 +6,8 @@ const query = ({ models, Op }) => {
         findAll,
         patchCustomer,
         findPaginationCustomer,
-        search
+        search,
+        remove
     });
 
 
@@ -20,6 +21,16 @@ const query = ({ models, Op }) => {
         }
     }
     
+    async function remove(id) {
+        try {
+            const customer = await findOneById(id)
+            const res = await customer.destroy();
+            return res;
+        } catch (e) {
+            console.log("Error: ", e);
+        }
+    }
+
     async function patchCustomer({data}){
         try {
             const Customer = models.Customer;

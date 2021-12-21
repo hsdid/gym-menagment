@@ -1,5 +1,5 @@
 const onecustomerSelect = ({ findCustomer }) => {
-    return async function getAll(req, res, next) {
+    return async function getOne(req, res, next) {
 
         const {customer, errors} = await findCustomer(req.params.id);
         

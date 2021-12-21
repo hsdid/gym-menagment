@@ -1,4 +1,4 @@
-const { customerAdds, customersUpdates, customersSelects, onecustomerSelects, customerSearch } = require('../../controller/customer/app');
+const { customerAdds, customersUpdates, customersSelects, onecustomerSelects, customerSearch, customerRemove } = require('../../controller/customer/app');
 
 const route = ({ router }) => {
     
@@ -11,6 +11,8 @@ const route = ({ router }) => {
     router.post('/add', customerAdds);
 
     router.put('/:id', customersUpdates);
+
+    router.delete('/:id', customerRemove);
 
     return router;
 };

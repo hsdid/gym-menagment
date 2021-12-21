@@ -7,6 +7,7 @@ const updateCustomer = require("./update-customer");
 const findOneCustomer = require("./find-one");
 const findPaginationCustomer = require("./find-pagination");
 const searchCustomers = require("./search-customers");
+const removeCustomer = require("./remove-customer");
 
 //validation
 const customerValidation = require("../../validation/customer");
@@ -17,6 +18,7 @@ const findAllCustomers = findAllCustomer({ customerDb });
 const findCustomer = findOneCustomer({ customerDb });
 const findPagination = findPaginationCustomer({ customerDb, customerHelper });
 const searchCustomer = searchCustomers({ customerDb });
+const remove = removeCustomer({ customerDb });
 
 const services = Object.freeze({
     addCustomers,
@@ -24,7 +26,8 @@ const services = Object.freeze({
     updateCustomers,
     findCustomer,
     findPagination,
-    searchCustomer
+    searchCustomer,
+    remove
 });
 
 module.exports = services;
@@ -34,5 +37,6 @@ module.exports = {
     updateCustomers,
     findCustomer,
     findPagination,
-    searchCustomer
+    searchCustomer,
+    remove
 };
