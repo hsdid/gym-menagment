@@ -2,7 +2,9 @@ const query = ({ models }) => {
     return Object.freeze({
         insertNewTicket,
         findTicketByCode,
-        patchTicket
+        patchTicket,
+        remove,
+        findOneById
     });
 
 
@@ -11,6 +13,28 @@ const query = ({ models }) => {
             Ticket = models.Ticket; 
             const res = await Ticket.create(data);
 
+            return res;
+        } catch (e) {
+            console.log("Error: ", e);
+        }
+    }
+
+    async function remove(id) {
+        try {
+            const ticket = await findOneById(id)
+            const res = await ticket.destroy();
+            return res;
+        } catch (e) {
+            console.log("Error: ", e);
+        }
+    }
+
+    async function findOneById(id) {
+        try {
+            Ticket = models.Ticket;
+            const res = await Ticket.findOne({where:{
+                id: id
+            }});
             return res;
         } catch (e) {
             console.log("Error: ", e);

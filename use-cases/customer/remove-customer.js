@@ -4,8 +4,11 @@ const removeCustomer = ({ customerDb }) => {
         const customer = await customerDb.findOneById(id);
         
         if (!customer) {
-            error = 'cant find customer';
-            return {errors: error}
+            msg = { 
+                error: 'Cant find customer'
+            }
+                
+            return {msg: msg}
         }
 
 

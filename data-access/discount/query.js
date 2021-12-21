@@ -2,7 +2,8 @@ const query = ({ models }) => {
     return Object.freeze({
         findAll,
         insertNewDiscount,
-        findOneById
+        findOneById,
+        remove
     });
 
     async function findAll() {
@@ -25,6 +26,16 @@ const query = ({ models }) => {
             console.log("Error: ", e);
         }
     };
+
+    async function remove(id) {
+        try {
+            const discount = await findOneById(id)
+            const res = await discount.destroy();
+            return res;
+        } catch (e) {
+            console.log("Error: ", e);
+        }
+    }
 
     async function findOneById(id) {
         try {

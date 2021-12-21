@@ -1,13 +1,10 @@
 const removeCustomer = ({ remove }) => {
     return async function removeOne(req, res, next) {
         
-        const {customerId, msg, errors} = await remove(req.params.id);
-
-        if (errors) {
-            msg = {
-                error: errors
-            }
+        const {customerId, msg} = await remove(req.params.id);
         
+        if (msg.error) {
+            
             return res.send({msg: msg});
         }
 

@@ -17,16 +17,16 @@ module.exports = (sequelize, DataTypes) => {
   };
   Ticket.init({
     code: {
-      type: DataTypes.STRING,
-      unique: true
+        type: DataTypes.STRING,
+        unique: true
     },
     finalPrice: {
         type: DataTypes.DECIMAL,
         allowNull: false
     },
     dateTo: {
-      type: DataTypes.DATE,
-      allowNull: false
+        type: DataTypes.DATE,
+        allowNull: false
     },
   }, {
     sequelize,

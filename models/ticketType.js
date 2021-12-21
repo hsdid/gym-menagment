@@ -24,13 +24,13 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
     },
     activeDays: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
     status: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
     }
   }, {
     sequelize,
