@@ -18,7 +18,7 @@ app.use('/customer', customerRoute);
 app.use('/discount', discountRoute);
 app.use('/ticket', ticketTypeRoute);
 
-app.listen({ port: 5000}, async () => {
+app.listen({ port: process.env.PORT || 5000}, async () => {
     'use strict';
     console.log('server running');
     //await sequelize.sync({force: true});
