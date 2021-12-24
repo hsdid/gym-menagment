@@ -26,6 +26,7 @@ const helper = ( ) => {
                         lastName: customer.dataValues.lastName,
                         number: customer.dataValues.number,
                         discount: discount,
+                        status: customer.dataValues.status,
                         ticket: {
                             id: ticket.dataValues.id,
                             code: ticket.dataValues.code,

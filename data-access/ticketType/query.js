@@ -30,7 +30,6 @@ const query = ({ models, Op }) => {
 
     async function patchTicketType(data) {
         try {
-            console.log('data-acces' , data);
             const TicketType = models.TicketType;
             const res = await TicketType.update(
                 data.dataValues,

@@ -16,9 +16,9 @@ const discountValidation = data => {
             "number.base": "discount must be in number",
             "number.empty": "discount cant be empty",
         }),
-        status: Joi.number()
-        .min(0)
-        .max(1),
+        createdAt: Joi.date(),
+        updatedAt: Joi.date(),
+        status: Joi.boolean()
             
     });
 

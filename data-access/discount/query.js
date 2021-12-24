@@ -3,7 +3,8 @@ const query = ({ models }) => {
         findAll,
         insertNewDiscount,
         findOneById,
-        remove
+        remove,
+        patchDiscount
     });
 
     async function findAll() {
@@ -26,6 +27,22 @@ const query = ({ models }) => {
             console.log("Error: ", e);
         }
     };
+
+    async function patchDiscount(data) {
+        try {
+            const Discount = models.Discount;
+            const res = await Discount.update(
+                data.dataValues,
+                {
+                    where:{
+                        id: data.dataValues.id
+                    }
+                });
+            return res;
+        } catch (e) {
+            console.log("Error: ", e);
+        }
+    }
 
     async function remove(id) {
         try {

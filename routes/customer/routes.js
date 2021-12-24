@@ -12,7 +12,7 @@ const route = ({ router }) => {
 
     router.put('/:id', customersUpdates);
 
-    router.delete('/:id', customerRemove);
+    router.delete('/edit', customerRemove);
 
     return router;
 };

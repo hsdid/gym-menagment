@@ -5,7 +5,7 @@ const route = ({ router }) => {
         .get('/', ticketTypeSelects)
         .get('/search', ticketTypeSearch)
         .get('/:id', ticketTypeSelectOne)
-        .patch('/edit', ticketTypeUpdates);
+        .put('/:id', ticketTypeUpdates);
         
     return router;
 }

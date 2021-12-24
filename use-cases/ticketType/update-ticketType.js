@@ -11,6 +11,7 @@ const updateTicketType = ({ ticketTypeDb, ticketTypeValidation }) => {
         ticketType.dataValues.name = data.name;
         ticketType.dataValues.price = data.price;
         ticketType.dataValues.activeDays = data.activeDays;
+        ticketType.dataValues.status = data.status;
         
         const res = await ticketTypeDb.patchTicketType(ticketType);
         return {res};

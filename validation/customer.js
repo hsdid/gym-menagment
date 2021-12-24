@@ -33,6 +33,7 @@ const customerValidation = data => {
             .messages({
                 "number.empty": "choose discount"
             }),
+        status: Joi.boolean()
     });
 
     return schema.validate(data);

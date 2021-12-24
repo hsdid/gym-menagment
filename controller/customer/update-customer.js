@@ -7,7 +7,8 @@ const customersUpdate = ({ updateCustomers, updateTickets, codeExists }) => {
             firstName: data.firstName,
             lastName: data.lastName,
             number: data.number,
-            discountId: data.discountId
+            discountId: data.discountId,
+            status: data.status
         };
         
         const { customer, errors } = await updateCustomers(customerData);
