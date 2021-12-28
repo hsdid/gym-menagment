@@ -1,6 +1,10 @@
 const updateDiscount = ({ discountDb, discountValidation }) => {
     return async function put(data) {
 
+        // console.log(data.id);
+        // if (data.id === undefined) {
+        //     return {errors: 'discount id is required'};
+        // }
         discount = await discountDb.findOneById(data.id);
 
         const {error} = discountValidation(discount.dataValues);
